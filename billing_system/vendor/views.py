@@ -16,12 +16,13 @@ class ProductView(APIView):
         return Response(serializer.data)
     
     def post(self,request):
-        print(request.data)
-        serializer = ProductSerializer(data=request.data,context={"user":request.user})
-        # print(serializer)
+        
+        
+        serializer = ProductSerializer(data=request.data,context={"request":request.user})
+        print(serializer)
         if serializer.is_valid():
            
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-        # print(serializer.errors)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

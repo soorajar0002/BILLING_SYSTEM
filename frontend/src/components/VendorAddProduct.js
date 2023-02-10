@@ -18,9 +18,7 @@ const VendorAddProduct = () => {
       console.log(err)
     }
   }
-  useEffect(() => {
-    data()
-  }, [])
+ 
   return (
     <div>
       <div class="grid grid-cols-6 gap-4 mt-36 ">
