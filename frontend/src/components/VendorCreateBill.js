@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import useAxios from "../axios/useAxios"
 import { useSelector } from "react-redux"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
 const VendorCreateBill = () => {
   const api = useAxios()
   const [product_name, setProductName] = useState("")
@@ -14,19 +14,19 @@ const VendorCreateBill = () => {
   console.log(grand_total, "222222")
   console.log(cart, "CART")
   const products = useSelector((state) => state.token.products.products)
-  const navigate = useNavigate();
-  const Calculate = async()=>{
+  const navigate = useNavigate()
+  const Calculate = () => {
     let total = 0
-    cart.map((item) => {
+    Object.values(cart).map((item) => {
       total += item.quantity * item.prod[0].price
-      
+      console.log(item.quantity, "QUAH")
     })
-    console.log(total,"cartsss",)
+    console.log(total, "cartsss")
     setGrandTotal(total)
   }
   const onSubmit = async (e) => {
     e.preventDefault()
-    
+
     const prod = products.filter(
       (product) => product.product_name === product_name
     )
@@ -35,25 +35,18 @@ const VendorCreateBill = () => {
       quantity: quantity,
     }
     setCart([...cart, cartItems])
-  
-  
-   
   }
   const addBill = async () => {
     try {
-      const response = await api.post(`/vendor_billing_system/`,
-        {
-          cart:cart,
-          grand_total:grand_total,
-          buyer_name:buyer_name,
-          
-        }
-      )
-     
-      if (response.status==201){
-        navigate('/vendor_home');
+      const response = await api.post(`/vendor_billing_system/`, {
+        cart: cart,
+        grand_total: grand_total,
+        buyer_name: buyer_name,
+      })
+
+      if (response.status == 201) {
+        navigate("/vendor_home")
       }
-      
     } catch (err) {
       console.log(err)
     }
@@ -69,18 +62,19 @@ const VendorCreateBill = () => {
   }
   useEffect(() => {
     data()
-    Calculate()
   }, [])
   return (
     <div>
       <h1 className="text-center text-xl font-bold mt-6">BILLING SYSTEM</h1>
       <div className="flex justify-between">
         <div className="relative w-full lg:max-w-sm ml-28 mt-10">
-          <select className=" p-1 text-gray-700 bg-white border font-semibold rounded-md shadow-sm outline-none appearance-none uppercase"
-           onChange={(event) => {
-            setBuyerName(event.target.value)
-          }}
-          value={buyer_name}>
+          <select
+            className=" p-1 text-gray-700 bg-white border font-semibold rounded-md shadow-sm outline-none appearance-none uppercase"
+            onChange={(event) => {
+              setBuyerName(event.target.value)
+            }}
+            value={buyer_name}
+          >
             <option>SELECT THE BUYER</option>
             {users?.map((user) => (
               <option>{user.username}</option>
@@ -167,24 +161,39 @@ const VendorCreateBill = () => {
                 }}
                 value={quantity}
               />
-            </div>
-            <button
-              type="submit"
-              onClick={ Calculate}
-              className="focus:outline-none text-white bg-black font-medium  text-sm my-10 p-1 px-4 rounded"
+            </div>{quantity?
+               <button
+               type="submit"
+               className="focus:outline-none text-white  bg-black font-medium  text-sm my-10 p-1 px-4 rounded"
+             >
+               ADD
+             </button>: <button
+              
+              className="focus:outline-none text-white  bg-black font-medium  text-sm my-10 p-1 px-4 rounded" disabled
             >
               ADD
             </button>
+            }
+            
           </div>
         </form>
       </div>
       <div className="flex justify-center mt-10">
         <button
+          onClick={Calculate}
+          className="focus:outline-none text-white bg-black font-medium  text-sm my-10 p-1 px-4 rounded"
+        >
+          CALCULATE TOTAL
+        </button>
+      </div>
+
+      <div className="flex justify-center">
+        <button
           type="button"
           onClick={addBill}
           className="focus:outline-none text-white bg-black  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  "
         >
-          CREATE
+          CONFIRM
         </button>
       </div>
     </div>
