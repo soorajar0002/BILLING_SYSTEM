@@ -5,6 +5,7 @@ import Buyer from './pages/Buyer'
 import BuyerHome from './pages/BuyerHome';
 import VendorHome from './pages/VendorHome';
 import VendorAddProductPage from './pages/VendorAddProductPage';
+import VendorCreateBillPage from './pages/VendorCreateBillPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/buyer_home" element={<BuyerHome/>}/>
         <Route path="/vendor_home" element={<VendorHome/>}/>
         <Route path="/vendor_add_product" element={<VendorAddProductPage/>}/>
+        <Route path="/vendor_create_bill" element={<VendorCreateBillPage/>}/>
         
         </Routes>
       </BrowserRouter>

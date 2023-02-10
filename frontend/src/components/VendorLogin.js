@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setToken } from "../redux/reducers/userSlice";
+import { setToken,vendorData } from "../redux/reducers/userSlice";
 const VendorLogin = () => {
   const [email, createEmail] = useState("")
   const [password, createPassword] = useState("")
@@ -18,6 +18,7 @@ const VendorLogin = () => {
       if ( res.data.is_vendor){
         console.log(res.data,"HERE")
         dispatch(setToken(res.data))
+        dispatch(vendorData(res.data))
         navigate('/vendor_home');
        
       }

@@ -15,11 +15,29 @@ export const userSlice = createSlice({
         // return a new data
         return {...state, token};
       },
-    }
+   
+    vendorData: (state, action) => {
+      const user = {
+        id: action.payload.id,
+        username:action.payload.username,
+        email: action.payload.email,
+        first_name: action.payload.first_name,
+        last_name: action.payload.last_name,
+        phone_number: action.payload.phone_number,
+        
+        isVendor: true,
+      };
+      console.log("sc",user)
+
+      return {
+        ...state,user,
+      };
+  }
+},
 });
 
 // this is for dispatch
-export const { setToken } = userSlice.actions;
+export const { setToken,vendorData } = userSlice.actions;
 
 // this is for configureStore
 export default userSlice.reducer;

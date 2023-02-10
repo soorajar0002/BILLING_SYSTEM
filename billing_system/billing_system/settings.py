@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'buyer',
     'vendor',
     "corsheaders",
     "accounts",
     'rest_framework_simplejwt.token_blacklist',
+    'sales',
 ]
 REST_FRAMEWORK = {
     
