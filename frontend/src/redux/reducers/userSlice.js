@@ -32,12 +32,22 @@ export const userSlice = createSlice({
       return {
         ...state,user,
       };
-  }
+  },
+  productsData: (state, action) => {
+    const products = {
+      products: action.payload,
+    };
+    
+
+    return {
+      ...state,products,
+    };
+}
 },
 });
 
 // this is for dispatch
-export const { setToken,vendorData } = userSlice.actions;
+export const { setToken,vendorData,productsData } = userSlice.actions;
 
 // this is for configureStore
 export default userSlice.reducer;

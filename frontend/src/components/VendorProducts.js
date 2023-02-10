@@ -1,14 +1,17 @@
 import React, { useEffect,useState } from "react"
 import useAxios from "../axios/useAxios"
+import { useDispatch } from 'react-redux';
+import { productsData } from "../redux/reducers/userSlice";
 const VendorProducts = () => {
   const api = useAxios()
   const [productData, setProductData] = useState([])
+  const dispatch = useDispatch();
   const data = async () => {
     try {
       const response = await api.get(`/products`, {})
       console.log(response.data)
       setProductData(response.data)
-      
+      dispatch(productsData(response.data))
     } catch (err) {
       console.log(err)
     }
