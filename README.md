@@ -19,4 +19,4 @@
    python manage.py runserver
 8. Open a browser window and navigate to 
   http://localhost:8000
-  Now you should have a running instance of the job portal locally,
+  Now you should have a running instance of the billing system locally,
